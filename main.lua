@@ -301,6 +301,18 @@ function mod:Room()
 			Game():ShowHallucination(0, BackdropType.MAUSOLEUM3)
 			SFXManager():Stop(SoundEffect.SOUND_DEATH_CARD)
 		end
+		
+		if roomDesc.GridIndex < 14 and room:GetDoor(DoorSlot.UP0) then
+		    room:GetDoor(DoorSlot.UP0):ToDoor():SetLocked(true)
+		elseif roomDesc.GridIndex > 155 and room:GetDoor(DoorSlot.DOWN0) then
+		    room:GetDoor(DoorSlot.DOWN0):ToDoor():SetLocked(true)
+		end
+		
+		if (roomDesc.GridIndex + 1) % 13 == 0 and room:GetDoor(DoorSlot.LEFT0) then
+		    room:GetDoor(DoorSlot.LEFT0):ToDoor():SetLocked(true)
+		elseif roomDesc.GridIndex % 13 == 0 and room:GetDoor(DoorSlot.RIGHT0) then
+		    room:GetDoor(DoorSlot.RIGHT0):ToDoor():SetLocked(true)
+		end
 	end
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.Room)
